@@ -1,0 +1,149 @@
+Stage,Item,Metric,Value
+Foundation,FOV,generated (1=yes),1
+Foundation,FOV,FOV pixels,230568
+Foundation,FOV,eroded FOV pixels,225107
+Foundation,FOV,FOV fraction of image,0.722274
+Unit 1,Red,std in FOV,0.119228
+Unit 1,Red,vessel contrast (CNR),0.847181
+Unit 1,Green,std in FOV,0.0629161
+Unit 1,Green,vessel contrast (CNR),1.52318
+Unit 1,Blue,std in FOV,0.0387994
+Unit 1,Blue,vessel contrast (CNR),1.47834
+Unit 1,nearest,PSNR (dB),33.7415
+Unit 1,nearest,MSE,0.000422524
+Unit 1,bilinear,PSNR (dB),35.7115
+Unit 1,bilinear,MSE,0.000268443
+Unit 1,bicubic,PSNR (dB),36.5391
+Unit 1,bicubic,MSE,0.000221863
+Unit 1,sampling 1/1,MSE,0
+Unit 1,sampling 1/2,MSE,0.000429956
+Unit 1,sampling 1/4,MSE,0.00136626
+Unit 1,sampling 1/8,MSE,0.00493855
+Unit 1,256 gray levels,MSE,1.26975e-06
+Unit 1,64 gray levels,MSE,2.07773e-05
+Unit 1,16 gray levels,MSE,0.00036973
+Unit 1,4 gray levels,MSE,0.00972589
+Unit 2 / DFT,DFT,energy fraction r<=20,0.903446
+Unit 2 / DCT,keep 50%,PSNR clean (dB),51.5636
+Unit 2 / DCT,keep 50%,MSE clean,6.97655e-06
+Unit 2 / DCT,keep 50%,PSNR noisy->rec vs clean (dB),26.4002
+Unit 2 / DCT,keep 50%,MSE noisy->rec vs clean,0.00229076
+Unit 2 / DCT,keep 25%,PSNR clean (dB),46.7579
+Unit 2 / DCT,keep 25%,MSE clean,2.10962e-05
+Unit 2 / DCT,keep 25%,PSNR noisy->rec vs clean (dB),27.4475
+Unit 2 / DCT,keep 25%,MSE noisy->rec vs clean,0.00179993
+Unit 2 / DCT,keep 10%,PSNR clean (dB),42.6527
+Unit 2 / DCT,keep 10%,MSE clean,5.42912e-05
+Unit 2 / DCT,keep 10%,PSNR noisy->rec vs clean (dB),29.5227
+Unit 2 / DCT,keep 10%,MSE noisy->rec vs clean,0.00111616
+Unit 2 / DCT,noisy input,PSNR (dB),26.0863
+Unit 2 / DCT,noisy input,MSE,0.00246247
+Unit 2 / DCT,selection,selected_cutoff (% kept),10
+Unit 2 / SVD,k = 5,energy retained,0.970396
+Unit 2 / SVD,k = 5,compression ratio,56.45
+Unit 2 / SVD,k = 5,PSNR (dB),23.1172
+Unit 2 / SVD,k = 5,MSE,0.00487838
+Unit 2 / SVD,k = 10,energy retained,0.980745
+Unit 2 / SVD,k = 10,compression ratio,28.225
+Unit 2 / SVD,k = 10,PSNR (dB),24.8763
+Unit 2 / SVD,k = 10,MSE,0.00325363
+Unit 2 / SVD,k = 20,energy retained,0.989779
+Unit 2 / SVD,k = 20,compression ratio,14.1125
+Unit 2 / SVD,k = 20,PSNR (dB),27.7383
+Unit 2 / SVD,k = 20,MSE,0.00168333
+Unit 2 / SVD,k = 50,energy retained,0.997111
+Unit 2 / SVD,k = 50,compression ratio,5.645
+Unit 2 / SVD,k = 50,PSNR (dB),34.1432
+Unit 2 / SVD,k = 50,MSE,0.000385196
+Unit 2 / SVD,k = 100,energy retained,0.999262
+Unit 2 / SVD,k = 100,compression ratio,2.8225
+Unit 2 / SVD,k = 100,PSNR (dB),42.2211
+Unit 2 / SVD,k = 100,MSE,5.99638e-05
+Unit 2 / DCT vs SVD,CR 4.0 DCT,PSNR (dB),46.7833
+Unit 2 / DCT vs SVD,CR 4.0 DCT,MSE,2.09732e-05
+Unit 2 / DCT vs SVD,CR 4.0 SVD,PSNR (dB),37.7929
+Unit 2 / DCT vs SVD,CR 4.0 SVD,MSE,0.000166229
+Unit 2 / DCT vs SVD,CR 8.1 DCT,PSNR (dB),43.6565
+Unit 2 / DCT vs SVD,CR 8.1 DCT,MSE,4.30872e-05
+Unit 2 / DCT vs SVD,CR 8.1 SVD,PSNR (dB),31.1975
+Unit 2 / DCT vs SVD,CR 8.1 SVD,MSE,0.000759016
+Unit 2 / DCT vs SVD,CR 15.7 DCT,PSNR (dB),40.0948
+Unit 2 / DCT vs SVD,CR 15.7 DCT,MSE,9.78402e-05
+Unit 2 / DCT vs SVD,CR 15.7 SVD,PSNR (dB),27.2252
+Unit 2 / DCT vs SVD,CR 15.7 SVD,MSE,0.00189443
+Unit 2 / DCT vs SVD,CR 31.4 DCT,PSNR (dB),35.7887
+Unit 2 / DCT vs SVD,CR 31.4 DCT,MSE,0.000263712
+Unit 2 / DCT vs SVD,CR 31.4 SVD,PSNR (dB),24.5503
+Unit 2 / DCT vs SVD,CR 31.4 SVD,MSE,0.00350726
+Unit 2 / DCT vs SVD,CR 70.6 DCT,PSNR (dB),31.4612
+Unit 2 / DCT vs SVD,CR 70.6 DCT,MSE,0.000714304
+Unit 2 / DCT vs SVD,CR 70.6 SVD,PSNR (dB),22.5305
+Unit 2 / DCT vs SVD,CR 70.6 SVD,MSE,0.00558408
+Unit 3 / enhancement,input,vessel CNR,0.113197
+Unit 3 / enhancement,input,illumination non-uniformity,0.436845
+Unit 3 / enhancement,stretch,vessel CNR,0.109419
+Unit 3 / enhancement,stretch,illumination non-uniformity,0.466526
+Unit 3 / enhancement,gamma 0.8,vessel CNR,0.10551
+Unit 3 / enhancement,gamma 0.8,illumination non-uniformity,0.388349
+Unit 3 / enhancement,hist. equalised,vessel CNR,0.067452
+Unit 3 / enhancement,hist. equalised,illumination non-uniformity,0.4846
+Unit 3 / enhancement,CLAHE (raw),vessel CNR,1.00618
+Unit 3 / enhancement,CLAHE (raw),illumination non-uniformity,0.225484
+Unit 3 / enhancement,bg-corrected,vessel CNR,1.62502
+Unit 3 / enhancement,bg-corrected,illumination non-uniformity,0.0586407
+Unit 3 / enhancement,CLAHE (bg-corrected),vessel CNR,1.51046
+Unit 3 / enhancement,CLAHE (bg-corrected),illumination non-uniformity,0.0649711
+Unit 3 / spatial,input,vessel CNR,1.45731
+Unit 3 / spatial,input,mean gradient,0.564003
+Unit 3 / spatial,average 5x5,vessel CNR,1.2552
+Unit 3 / spatial,average 5x5,mean gradient,0.401691
+Unit 3 / spatial,Gaussian s=1.5,vessel CNR,1.2709
+Unit 3 / spatial,Gaussian s=1.5,mean gradient,0.407079
+Unit 3 / spatial,Laplacian sharpen,vessel CNR,1.54217
+Unit 3 / spatial,Laplacian sharpen,mean gradient,0.85819
+Unit 3 / spatial,unsharp mask,vessel CNR,1.59438
+Unit 3 / spatial,unsharp mask,mean gradient,0.826678
+Unit 3 / frequency,Ideal LPF D0=100,PSNR vs input (dB),20.7357
+Unit 3 / frequency,Ideal LPF D0=100,illumination non-uniformity,0.0644167
+Unit 3 / frequency,Butterworth LPF D0=100 n=2,PSNR vs input (dB),22.2139
+Unit 3 / frequency,Butterworth LPF D0=100 n=2,illumination non-uniformity,0.0643781
+Unit 3 / frequency,Gaussian LPF D0=100,PSNR vs input (dB),23.4271
+Unit 3 / frequency,Gaussian LPF D0=100,illumination non-uniformity,0.0641472
+Unit 3 / frequency,Gaussian HPF D0=6,PSNR vs input (dB),30.7818
+Unit 3 / frequency,Gaussian HPF D0=6,illumination non-uniformity,0.048837
+Unit 3 / frequency,input,illumination non-uniformity,0.0649711
+Unit 3 / restoration,Gaussian var 0.005 / noisy (no filter),PSNR (dB),23.1735
+Unit 3 / restoration,Gaussian var 0.005 / noisy (no filter),MSE,0.00481561
+Unit 3 / restoration,Gaussian var 0.005 / mean 3x3,PSNR (dB),29.5239
+Unit 3 / restoration,Gaussian var 0.005 / mean 3x3,MSE,0.00111586
+Unit 3 / restoration,Gaussian var 0.005 / median 3x3,PSNR (dB),28.5424
+Unit 3 / restoration,Gaussian var 0.005 / median 3x3,MSE,0.00139882
+Unit 3 / restoration,Gaussian var 0.005 / wiener2 5x5,PSNR (dB),27.1736
+Unit 3 / restoration,Gaussian var 0.005 / wiener2 5x5,MSE,0.00191709
+Unit 3 / restoration,salt&pepper d=0.05 / noisy (no filter),PSNR (dB),18.0893
+Unit 3 / restoration,salt&pepper d=0.05 / noisy (no filter),MSE,0.0155262
+Unit 3 / restoration,salt&pepper d=0.05 / mean 3x3,PSNR (dB),25.8872
+Unit 3 / restoration,salt&pepper d=0.05 / mean 3x3,MSE,0.00257797
+Unit 3 / restoration,salt&pepper d=0.05 / median 3x3,PSNR (dB),34.8161
+Unit 3 / restoration,salt&pepper d=0.05 / median 3x3,MSE,0.000329906
+Unit 3 / restoration,salt&pepper d=0.05 / wiener2 5x5,PSNR (dB),23.1423
+Unit 3 / restoration,salt&pepper d=0.05 / wiener2 5x5,MSE,0.00485032
+Unit 3 / restoration,periodic A=0.1 / noisy,PSNR (dB),23.1209
+Unit 3 / restoration,periodic A=0.1 / notch,PSNR (dB),43.9219
+Unit 4 / extraction,top-hat,threshold (percentile),0.472635
+Unit 4 / extraction,top-hat,raw vessel fraction,0.119996
+Unit 4 / cleanup,cleanup,components before,354
+Unit 4 / cleanup,cleanup,components after,39
+Unit 4 / cleanup,cleanup,components removed,315
+Unit 4 / cleanup,cleanup,pixels removed,7898
+Unit 4 / cleanup,cleanup,pixels added (closing + holes),203
+Unit 4 / cleanup,cleanup,largest component share,0.214423
+Unit 4 / clinical features,clinical,vessel_density,0.0858125
+Unit 4 / clinical features,clinical,thin_pixels,3630
+Unit 4 / clinical features,clinical,thick_pixels,15687
+Unit 4 / clinical features,clinical,thin_thick_ratio,0.231402
+Unit 4 / clinical features,clinical,branch_points,27
+Unit 4 / clinical features,clinical,end_points,99
+Unit 4 / clinical features,clinical,skeleton_length_px,3062.39
+Unit 4 / clinical features,clinical,mean_width_px,5.05239
+Unit 4 / clinical features,clinical,max_width_px,12.4164

@@ -1,0 +1,5 @@
+synthetic_test.png         - artificial fundus image (584 x 565, DRIVE-like) generated
+                             only to test the code end to end. NOT a real retina.
+synthetic_test_manual1.png - its exact vessel mask (used as ground truth).
+No FOV mask is included on purpose, so the "generate FOV from red channel" path is exercised.
+Numbers obtained on this image say nothing about real clinical performance.

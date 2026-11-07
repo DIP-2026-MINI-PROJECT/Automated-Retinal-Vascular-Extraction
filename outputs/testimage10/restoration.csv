@@ -1,0 +1,11 @@
+Noise,Filter,PSNR_dB,MSE
+Gaussian var 0.005,noisy (no filter),23.1532,0.00483811
+Gaussian var 0.005,mean 3x3,28.9657,0.00126892
+Gaussian var 0.005,median 3x3,28.3842,0.0014507
+Gaussian var 0.005,wiener2 5x5,26.8823,0.00205008
+salt&pepper d=0.05,noisy (no filter),18.1705,0.0152386
+salt&pepper d=0.05,mean 3x3,25.7055,0.00268812
+salt&pepper d=0.05,median 3x3,33.9301,0.00040457
+salt&pepper d=0.05,wiener2 5x5,23.2229,0.00476116
+periodic A=0.1,noisy (no filter),23.1067,0.00489027
+periodic A=0.1,Gaussian notch reject,43.3245,4.65107e-05

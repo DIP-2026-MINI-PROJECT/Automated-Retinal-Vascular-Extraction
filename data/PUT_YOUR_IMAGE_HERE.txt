@@ -1,0 +1,6 @@
+Put the fundus image here (e.g. 21_training.tif), and optionally:
+  - the ground-truth vessel mask: name containing "manual", "_gt", "vessel" or "label"
+    (e.g. 21_manual1.gif)
+  - the FOV mask: name containing "mask" or "fov" (e.g. 21_training_mask.gif)
+Or set the exact file names in config.m (cfg.paths.image / gt / fov).
+If this folder has no image, the pipeline runs on data_synthetic/ instead and says so.

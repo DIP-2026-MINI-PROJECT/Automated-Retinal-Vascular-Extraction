@@ -1,0 +1,11 @@
+Image,GT,Vessel_density,Branch_points,Thin_thick_ratio,Skeleton_length_px,DCT_cutoff_pct,Dice,Sensitivity,Specificity,Accuracy
+testimage1.jpeg,none,0.0858125,27,0.231402,3062.39,10,NaN,NaN,NaN,NaN
+testimage10.jpeg,none,0.101529,30,0.23849,4014.65,10,NaN,NaN,NaN,NaN
+testimage2.jpeg,none,0.0790063,28,0.226741,2894.04,10,NaN,NaN,NaN,NaN
+testimage3.jpeg,none,0.084374,32,0.240805,3077.74,10,NaN,NaN,NaN,NaN
+testimage4.jpeg,none,0.0917284,40,0.173238,3873.53,10,NaN,NaN,NaN,NaN
+testimage5.jpeg,none,0.0908744,63,0.239436,3906.22,10,NaN,NaN,NaN,NaN
+testimage6.jpeg,none,0.0937694,35,0.236996,2444.1,10,NaN,NaN,NaN,NaN
+testimage7.jpeg,none,0.0989097,55,0.189143,4071.85,10,NaN,NaN,NaN,NaN
+testimage8.jpeg,none,0.0948979,30,0.196808,3787.53,10,NaN,NaN,NaN,NaN
+testimage9.jpeg,none,0.105258,31,0.212828,2726.81,10,NaN,NaN,NaN,NaN

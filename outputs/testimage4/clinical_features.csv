@@ -1,0 +1,10 @@
+Feature,Value
+vessel_density,0.0917284
+thin_pixels,3849
+thick_pixels,22218
+thin_thick_ratio,0.173238
+branch_points,40
+end_points,117
+skeleton_length_px,3873.53
+mean_width_px,5.45606
+max_width_px,11.1655
