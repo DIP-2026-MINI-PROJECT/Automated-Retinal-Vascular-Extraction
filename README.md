@@ -1,8 +1,8 @@
-# RetinaVascNet
+# Automated Retinal Vascular Extraction
 
 ### Project Description:
 
-#### Summary -
+#### Summary 
 
 **Automated Extraction of Retinal Vascular Networks for Early Disease Screening**
 
@@ -19,7 +19,7 @@ The system generates a binary vessel segmentation mask, a colour-coded vascular 
 
 The project is implemented using MATLAB-compatible code and GNU Octave, without machine learning or deep learning.
 
-#### Course concepts used -
+#### Course concepts used 
 
 1. **Digital Image Fundamentals**
    - RGB channel separation and grayscale image analysis.
@@ -46,7 +46,7 @@ The project is implemented using MATLAB-compatible code and GNU Octave, without 
    - Connected-component analysis and noise removal.
    - Skeletonization and morphological feature extraction.
 
-#### Additional concepts used -
+#### Additional concepts used 
 
 1. **Retinal Vascular Feature Analysis**
    - Vessel density estimation.
@@ -60,7 +60,7 @@ The project is implemented using MATLAB-compatible code and GNU Octave, without 
    - Generation of pseudocoloured vessel masks and overlays.
    - Comparison against a global Otsu thresholding baseline.
 
-#### Dataset -
+#### Dataset 
 
 The project processes colour retinal fundus images.
 
@@ -75,20 +75,6 @@ For small images, bicubic interpolation is used to increase resolution before ve
 
 A synthetic test image is also provided as a fallback to verify pipeline execution when no real fundus image is available.
 
-#### Novelty -
-
-1. **Integrated Classical Image Processing Pipeline**
-   - Combines transform-domain denoising, illumination correction, adaptive contrast enhancement, and morphological vessel extraction into a unified processing framework.
-   - Operates without requiring training datasets or machine learning models.
-
-2. **Resolution-Adaptive Vessel Extraction**
-   - Automatically adjusts filtering parameters and morphological structuring elements based on image resolution.
-   - Supports images of varying sizes while maintaining a consistent processing workflow.
-
-3. **Quantitative Vascular Analysis and Visualization**
-   - Extracts vessel density, branching points, vessel thickness distribution, and vascular skeleton length.
-   - Produces pseudocolour diagnostic visualizations distinguishing thin and thick vessels.
-   - Supports evaluation against ground-truth masks and comparison with conventional thresholding methods.
 
 ### Contributors:
 
