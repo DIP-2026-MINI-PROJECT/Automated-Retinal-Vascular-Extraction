@@ -1,206 +1,211 @@
-# Retinal vessel extraction from fundus images (DIP course project)
+# RetinaVascNet
 
-PES University, ECE: Digital Image Processing.
+### Project Description:
 
-This project extracts the retinal blood-vessel network from **one** colour fundus image. The output supports early screening for diabetic retinopathy and glaucoma. It follows the problem statement's chain:
+#### Summary -
 
-> transform-domain compression (noise reduction) → spatial histogram enhancement (illumination correction) → morphological filtering → pseudocoloured diagnostic mask
+**Automated Extraction of Retinal Vascular Networks for Early Disease Screening**
 
-Everything is classical image processing in MATLAB with the Image Processing Toolbox. **No machine learning, deep learning or trained model is used anywhere.**
+This project develops an automated retinal blood vessel extraction pipeline using classical Digital Image Processing (DIP) techniques on colour fundus images. The objective is to identify retinal vascular structures and extract quantitative features that can support early screening for conditions such as diabetic retinopathy and glaucoma.
 
----
+The implementation follows a four-stage processing pipeline:
 
-## 1. How to run
+1. **Image Preprocessing:** RGB channel analysis, field-of-view detection, intensity normalization, interpolation, and sampling analysis.
+2. **Transform-Domain Processing:** Discrete Cosine Transform (DCT) compression and denoising, with comparisons against Discrete Fourier Transform (DFT) and Singular Value Decomposition (SVD).
+3. **Image Enhancement:** Background illumination correction, Contrast Limited Adaptive Histogram Equalization (CLAHE), and spatial filtering.
+4. **Vessel Extraction and Analysis:** Morphological black top-hat filtering, thresholding, mask cleanup, skeletonization, vessel feature extraction, and pseudocolour visualization.
 
-1. Copy the whole folder anywhere, for example `C:\DIPPROJECTFINAL`.
-2. Put your fundus image in `data/`. You can also add these optional files:
-   * a ground-truth vessel mask. Its name must contain `manual`, `_gt`, `vessel` or `label` (e.g. `21_manual1.gif`).
-   * a FOV mask. Its name must contain `mask` or `fov` (e.g. `21_training_mask.gif`).
+The system generates a binary vessel segmentation mask, a colour-coded vascular network, and quantitative measurements including vessel density, branching points, vessel thickness, and skeleton length.
 
-   Alternatively, write the exact file names in `config.m` (`cfg.paths.image`, `cfg.paths.gt`, `cfg.paths.fov`).
-3. In MATLAB, `cd` into the project folder and run:
+The project is implemented using MATLAB-compatible code and GNU Octave, without machine learning or deep learning.
+
+#### Course concepts used -
+
+1. **Digital Image Fundamentals**
+   - RGB channel separation and grayscale image analysis.
+   - Image histograms and intensity normalization.
+   - Image interpolation, sampling, and quantization.
+
+2. **Image Transforms and Compression**
+   - Discrete Fourier Transform (DFT) and frequency spectrum analysis.
+   - Discrete Cosine Transform (DCT) for image compression and denoising.
+   - Singular Value Decomposition (SVD) for low-rank image approximation.
+   - Comparison of compression efficiency using PSNR and MSE.
+
+3. **Image Enhancement and Restoration**
+   - Histogram equalization and CLAHE.
+   - Gamma correction and contrast stretching.
+   - Spatial filtering using Gaussian, mean, median, Laplacian, and unsharp masking.
+   - Frequency-domain filtering using ideal, Butterworth, and Gaussian filters.
+   - Image restoration using Wiener filtering and notch filtering.
+
+4. **Morphological Image Processing**
+   - Morphological opening and closing.
+   - Black top-hat transformation for vessel enhancement.
+   - Threshold-based vessel segmentation.
+   - Connected-component analysis and noise removal.
+   - Skeletonization and morphological feature extraction.
+
+#### Additional concepts used -
+
+1. **Retinal Vascular Feature Analysis**
+   - Vessel density estimation.
+   - Vessel thickness analysis using distance transforms.
+   - Detection of vascular branching and endpoints.
+   - Estimation of total vessel skeleton length.
+
+2. **Segmentation Evaluation and Visualization**
+   - Comparison with manually annotated ground-truth vessel masks.
+   - Evaluation using sensitivity, specificity, accuracy, precision, and Dice coefficient.
+   - Generation of pseudocoloured vessel masks and overlays.
+   - Comparison against a global Otsu thresholding baseline.
+
+#### Dataset -
+
+The project processes colour retinal fundus images.
+
+- **Primary input:** Retinal fundus image (`testimage3.jpeg`, 224 × 224 pixels) used during initial testing.
+- **Reference dataset:** [DRIVE — Digital Retinal Images for Vessel Extraction](https://drive.grand-challenge.org/).
+- **Ground-truth masks:** Optional manually segmented vessel masks used for quantitative evaluation.
+- **Field-of-view masks:** Either supplied with the dataset or automatically generated.
+
+The pipeline supports processing individual images as well as multiple images in a dataset.
+
+For small images, bicubic interpolation is used to increase resolution before vessel extraction.
+
+A synthetic test image is also provided as a fallback to verify pipeline execution when no real fundus image is available.
+
+#### Novelty -
+
+1. **Integrated Classical Image Processing Pipeline**
+   - Combines transform-domain denoising, illumination correction, adaptive contrast enhancement, and morphological vessel extraction into a unified processing framework.
+   - Operates without requiring training datasets or machine learning models.
+
+2. **Resolution-Adaptive Vessel Extraction**
+   - Automatically adjusts filtering parameters and morphological structuring elements based on image resolution.
+   - Supports images of varying sizes while maintaining a consistent processing workflow.
+
+3. **Quantitative Vascular Analysis and Visualization**
+   - Extracts vessel density, branching points, vessel thickness distribution, and vascular skeleton length.
+   - Produces pseudocolour diagnostic visualizations distinguishing thin and thick vessels.
+   - Supports evaluation against ground-truth masks and comparison with conventional thresholding methods.
+
+### Contributors:
+
+1. Shriya Arunkumar (PES1UG24EC206)
+2. Samarth Sheshadri (PES1UG24EC180)
+3. Sahil Nair (PES1UG24EC174)
+
+### Steps:
+
+1. **Clone Repository**
+
+   ```bash
+   git clone <repo-url>
+   cd Automated-Retinal-Vascular-Extraction
+   ```
+
+2. **Install Dependencies**
+
+   The project requires MATLAB with the Image Processing Toolbox, or a compatible GNU Octave installation with the image package.
+
+   No Python dependencies are required.
+
+3. **Prepare Input Images**
+
+   Place the retinal fundus image in the `data/` directory.
+
+   Optionally, include:
+   - Ground-truth vessel segmentation mask.
+   - Field-of-view (FOV) mask.
+
+   Image paths and processing parameters can be modified in `config.m`.
+
+4. **Run the Code**
+
+   Open MATLAB, navigate to the project directory, and execute:
+
    ```matlab
    main_pipeline
    ```
-4. All figures (PNG, 150 dpi), `results.mat`, `metrics.csv` and the other tables appear in `outputs/`.
 
-**If `data/` has no image**, the pipeline runs on the synthetic test image in `data_synthetic/` and prints a warning saying so. That image is artificial and only proves the code runs.
+5. **Process Multiple Images**
 
-**Small or low-resolution images are handled automatically.** The defaults are tuned for a DRIVE-sized image (565 px wide).
-* An image narrower than `cfg.scale.upsample_below` (400 px) is first upsampled with bicubic interpolation to 565 px wide. Morphology on 1–2 px vessels is too coarse otherwise.
-* Every size parameter (structuring elements, blur sigmas, CLAHE tiles, frequency cutoffs, areas) is then rescaled to the actual width by `utils/scale_params.m`. The values used are printed at the start of the run.
-* Set `cfg.scale.auto = false` and `cfg.scale.upsample_below = 0` to use `config.m` exactly as typed.
+   To run the pipeline across all images in the `data/` directory:
 
-**Missing files are handled:**
-* No ground truth: the evaluation metrics are skipped with a warning, and everything else still runs.
-* No FOV mask: one is generated by thresholding the red channel. It is then cleaned with opening, hole filling and keeping the largest component.
+   ```matlab
+   run_all_images
+   ```
 
-### Running one unit only (for each teammate)
-In `config.m` set
-```matlab
-cfg.run.mode = 'unit3';   % 'all' | 'unit1' | 'unit2' | 'unit3' | 'unit4' | 'eval'
-```
-A single-unit run reads the previous unit's output from `outputs/handoff.mat`, which every full run writes. Without that file, it falls back to the normalised green channel. You can also call `unit1_demo` on its own.
+6. **View Results**
 
-### Processing several images (`run_all_images.m`)
-1. Put all fundus images in `data/`. Ground-truth or FOV masks are optional. A mask is matched to an image when its name starts with the same first part, DRIVE style: `21_training.tif`, `21_manual1.gif`, `21_training_mask.gif`.
-2. Run `run_all_images` instead of `main_pipeline`.
-3. Each image gets its own folder, `outputs/<image name>/`, with the full set of figures and CSVs. `outputs/all_images_summary.csv` compares all images in one table: density, branch points, thin/thick ratio, length, and Dice/Se/Sp/Acc where ground truth exists.
+   Generated images, evaluation metrics, and intermediate processing outputs are saved in the `outputs/` directory.
 
-`main_pipeline` on its own still processes one image: the one named in `cfg.paths.image`, or the first image in `data/`.
+### Outputs:
 
----
+**Important Intermediate Steps**
 
-## 2. Folder layout
+- RGB channel separation and histogram analysis.
+- Field-of-view extraction and green-channel normalization.
+- DFT spectrum and DCT/SVD compression comparisons.
+- Illumination correction and CLAHE enhancement.
+- Morphological black top-hat vessel enhancement.
+- Binary vessel segmentation and mask cleanup.
+- Skeletonization and vascular feature analysis.
 
-```
-project/
-  data/                  your fundus image (+ optional ground truth and FOV mask)
-  data_synthetic/        synthetic test image + its vessel mask (fallback only)
-  config.m               ALL parameters and paths
-  main_pipeline.m        runs everything end to end (one image)
-  run_all_images.m       runs main_pipeline on every image in data/
-  utils/
-    load_sample.m        load + validate image, ground truth, FOV
-    scale_params.m       rescale size parameters to the image width
-    list_data_images.m   find and classify images / masks in a folder
-    get_fov_mask.m       load/generate FOV, erode rim, normalise green inside FOV
-    psnr_mse.m           PSNR / MSE (optionally inside a mask)
-    save_fig.m           save a figure as PNG at cfg.fig.dpi
-    (helpers)            new_fig, show_panel, fov_hist, fill_outside_fov, gauss_blur,
-                         norm_fov, crop_roi, pick_zoom_roi, tf_dct2, clahe_safe,
-                         vessel_proxy, vessel_contrast, illum_nonuniformity,
-                         prctile_fov, add_metric, metrics_to_rows, write_csv,
-                         print_table, is_octave
-  unit1/   unit1_demo.m  channel_split.m  interp_compare.m  sampling_quantization.m
-  unit2/   dft_spectrum.m  dct_denoise.m  svd_compress.m  dct_vs_svd.m
-  unit3/   enhance_illumination.m  spatial_filtering.m  freq_filtering.m  restoration_compare.m
-  unit4/   morph_vessel_extract.m  mask_cleanup.m  skeleton_analysis.m  pseudocolor_output.m
-  evaluation/  evaluate_mask.m  baseline_threshold.m
-  outputs/       generated: PNG figures, CSV tables, results.mat, handoff.mat
-  README.md
-```
+**Final Output Images**
 
-### Data flow between units
-```
-RGB ─► FOV + normalised green (foundation)
-        ├─► Unit 1: analysis only (channels, interpolation, sampling/quantisation)
-        └─► Unit 2: DCT keeps the largest X% of coefficients ─► denoised green (selected_cutoff)
-                     └─► Unit 3: background subtraction + CLAHE (+ median 3x3) ─► enhanced green
-                                  └─► Unit 4: black top-hat ─► threshold ─► cleanup ─► vessel mask
-                                               ├─► skeleton + clinical features
-                                               └─► pseudocoloured mask + overlay
-        evaluation: vessel mask vs ground truth, and baseline (global Otsu on denoised green)
-```
+- `pseudocolor_mask.png` — Colour-coded retinal vascular network.
+- `pseudocolor_overlay.png` — Extracted blood vessels overlaid on the original fundus image.
+- `u4_03_skeleton_analysis.png` — Vascular skeleton and structural features.
+- `eval_error_map_*.png` — Segmentation error visualization when ground truth is available.
 
----
+**Quantitative Results**
 
-## 3. File → course unit → topic → owner
+The following results were obtained using the initial 224 × 224 retinal fundus image, upsampled to 565 pixels wide:
 
-| File | Unit | Topic | Owner |
-|---|---|---|---|
-| `config.m`, `main_pipeline.m` | Shared | Configuration, integration | Shriya |
-| `utils/load_sample.m` | Unit 1 | Image I/O, data types, validation | Shriya |
-| `utils/get_fov_mask.m` | Unit 1 | Thresholding, FOV, intensity normalisation | Shriya |
-| `utils/psnr_mse.m`, `utils/save_fig.m` (+ helpers) | Shared | Quality measures, figure export | Shriya |
-| `unit1/unit1_demo.m` | Unit 1 | Runs the Unit 1 demos | Shriya |
-| `unit1/channel_split.m` | Unit 1 | Colour channels, histograms, contrast | Shriya |
-| `unit1/interp_compare.m` | Unit 1 | Nearest / bilinear / bicubic interpolation | Shriya |
-| `unit1/sampling_quantization.m` | Unit 1 | Spatial sampling, gray-level quantisation | Shriya |
-| `unit2/dft_spectrum.m` | Unit 2 | 2-D DFT, fftshift, log spectrum | Samarth |
-| `unit2/dct_denoise.m` | Unit 2 | 2-D DCT, coefficient truncation, denoising | Samarth |
-| `unit2/svd_compress.m` | Unit 2 | SVD, low-rank approximation, energy | Sahil |
-| `unit2/dct_vs_svd.m` | Unit 2 | DCT vs SVD at matched compression | Samarth + Sahil |
-| `unit3/enhance_illumination.m` | Unit 3 | Point ops, gamma, hist. equalisation, CLAHE, background correction | Shriya |
-| `unit3/spatial_filtering.m` | Unit 3 | Smoothing, Laplacian, unsharp masking | Shriya |
-| `unit3/freq_filtering.m` | Unit 3 | Ideal / Butterworth / Gaussian LPF, Gaussian HPF (manual FFT) | Samarth |
-| `unit3/restoration_compare.m` | Unit 3 | Noise models, mean / median / Wiener, notch filter | Samarth |
-| `unit4/morph_vessel_extract.m` | Unit 4 | Black top-hat, line structuring elements, Otsu | Sahil |
-| `unit4/mask_cleanup.m` | Unit 4 | Opening/closing, area opening, hole filling, connected components | Sahil |
-| `unit4/skeleton_analysis.m` | Unit 4 | Skeleton, hit-or-miss, distance transform, features | Sahil |
-| `unit4/pseudocolor_output.m` | Unit 4 | Pseudocolour, colormaps, overlays | Sahil |
-| `evaluation/evaluate_mask.m` | Eval | Se, Sp, Acc, Precision, Dice, error map | Sahil |
-| `evaluation/baseline_threshold.m` | Eval | Global-threshold baseline | Sahil |
-
-**Ownership summary:**
-* **Shriya:** Unit 1, shared foundation, integration, and Unit 3 enhancement.
-* **Samarth:** the DFT/DCT branch and restoration.
-* **Sahil:** SVD, Unit 4 and evaluation.
-
----
-
-## 4. Outputs and what to infer from each
-
-| Output | What it shows | What to infer |
-|---|---|---|
-| `u1_01_inputs.png` | Image, ground truth, and the automatically chosen thin-vessel zoom window | Every later "zoom" panel uses this window. |
-| `u1_02_fov_mask.png` | FOV (loaded or generated), the eroded FOV, and the normalised green channel | The rim is excluded, so it can't create false vessels at the border. |
-| `u1_03_channel_split.png` | R, G, B with histograms, std, and vessel CNR | Green has the highest vessel contrast. Red is saturated and blue is dark and noisy, which justifies using green. |
-| `u1_04_interp_compare.png` | Nearest / bilinear / bicubic after down- then up-scaling | Bicubic has the highest PSNR. Nearest makes thin vessels blocky and bilinear blurs them. |
-| `u1_05_sampling_quantization.png` | Sampling 1/1…1/8 and 256…4 gray levels | Thin vessels vanish first when sampling is reduced. Down to about 16 levels the eye barely notices, while 4 levels give false contours. |
-| `u2_01_dft_spectrum.png` | Log-magnitude spectrum | Most energy sits at low frequencies, which is why transform compression works. |
-| `u2_02_dct_compression.png` | Keep 50/25/10% of DCT coefficients, difference images, zooms | PSNR drops as fewer coefficients are kept. The error spreads as fine noise rather than vessel loss. `selected_cutoff` is the smallest keep-ratio above the PSNR threshold. |
-| `u2_03_dct_denoise_noisy.png` | Same on an image with Gaussian noise added | Fewer coefficients means higher PSNR against the clean image, because discarding small coefficients removes noise. |
-| `u2_04_svd_compress.png` | Rank-k reconstructions, cumulative energy, singular values | About 99% of energy is in very few singular values, yet low k gives streaky artefacts. Energy alone is a poor quality measure. |
-| `u2_05_dct_vs_svd.png`, `dct_vs_svd.csv` | PSNR vs compression ratio for both methods | At the same storage, DCT beats SVD for natural images. This is why Unit 3 uses the DCT output by default. |
-| `u3_01_enhancement.png`, `u3_02_…histograms.png` | Stretch, gamma, histogram equalisation, CLAHE, background estimate, corrected image | Global methods keep the bright optic disc and dark periphery. Background correction flattens illumination (non-uniformity drops), and CLAHE then equalises local contrast. |
-| `u3_03_spatial_filtering.png` | Average, Gaussian, Laplacian, unsharp | Smoothing lowers the gradient (blur). Sharpening raises edges but also noise, so vessel CNR does not automatically improve. |
-| `u3_04_freq_filtering.png` | Hand-built filters H(u,v) and their results | The ideal LPF shows ringing (Gibbs), Butterworth shows less, and Gaussian shows none. A small-D0 Gaussian HPF removes the illumination gradient. |
-| `u3_05_restoration.png`, `restoration.csv` | Gaussian and salt-and-pepper noise vs mean / median / Wiener | Median wins clearly for salt-and-pepper. For Gaussian noise, mean and median are about equal and Wiener depends on how much fine texture the image has. |
-| `u3_06_periodic_notch.png` | Sinusoidal noise, its spectral peaks, the notch filter | Periodic noise is two bright points in the spectrum. A notch removes it almost perfectly (large PSNR gain). |
-| `u4_01_morph_extract.png` | Line-bank filtering, black top-hat response, threshold histogram | The top-hat turns dark thin structures into a bright response. The red line is the threshold actually used. |
-| `u4_02_mask_cleanup.png` | Before/after clean-up, removed (red) and added (cyan) pixels | Small isolated blobs are removed. Count is reported as "components removed". |
-| `u4_03_skeleton_analysis.png`, `clinical_features.csv` | Skeleton, end/branch points, width map, thin vs thick | These are the **clinical features**: vessel density, thin/thick ratio, branch points and total length. |
-| `u4_04_pseudocolor_mask.png`, `u4_05_pseudocolor_overlay.png`, `pseudocolor_mask.png`, `pseudocolor_overlay.png` | **Final diagnostic output**: vessels coloured by width, alone and over the fundus image | Blue is thin capillaries and red is thick main vessels. The colorbar is in pixels. |
-| `eval_error_map_*.png`, `error_map_*.png` | TP white, FP red, FN blue, TN black | Blue (missed) usually sits on the thinnest capillaries and at the optic disc. Red (false) sits at bright/dark lesion edges. |
-| `comparison.csv` | Baseline vs pipeline | Shows how much the full pipeline beats a single global threshold. |
-| `metrics.csv`, `summary.csv`, `results.mat` | Every number, the headline numbers, and all result structs + config | Use these for the report tables. |
-
----
-
-## 5. Parameters worth tuning (all in `config.m`)
-
-| Parameter | Default | Effect |
-|---|---|---|
-| `cfg.dct.psnr_thresh` | 35 dB | Higher keeps more DCT coefficients (less smoothing). |
-| `cfg.unit3.bg_sigma` | 25 px | Must be much wider than the widest vessel (about 3×). If too small, vessels get subtracted as "background". |
-| `cfg.unit3.clahe_clip`, `clahe_tiles` | 0.01, [8 8] | A higher clip limit boosts contrast and noise. |
-| `cfg.morph.disk_radius` | 7 px | Must exceed half the widest vessel width. For DRIVE (565 px wide) 6–8 works; scale it with image size. |
-| `cfg.morph.thresh_method` | `'percentile'` | Keeps the strongest (100 - `cfg.morph.percentile`)% = 12% of FOV pixels, typical for DRIVE. `'otsu'` over-segmented the real image in MATLAB (density 0.25), so percentile is the default. |
-| `cfg.cleanup.min_area` | 150 px | Raise it to remove more noise, lower it to keep isolated capillary pieces. |
-| `cfg.skel.thin_width_px` | 4 px | The boundary between "thin" and "thick" vessels. |
-| `cfg.fov.erode_radius` | 4 px | Raise it if a bright ring appears at the FOV border in the vessel mask. |
-
-## 6. Results on `testimage3.jpeg` (the supplied 224×224 image)
-
-The image was upsampled ×2.52 to 565 px wide (bicubic), with parameters scaled to match. There is no ground truth, so Se/Sp/Dice are skipped with a warning and the clinical features are the main result.
-
-| Result | Value |
+| Parameter | Result |
 |---|---|
-| Vessel CNR, R / G / B (after flattening the illumination) | 0.86 / **1.54** / 1.48: green is best |
-| DCT `selected_cutoff` | 10% of coefficients kept (PSNR 42.7 dB) |
-| Otsu threshold on the top-hat response | 0.483 |
-| Components before → after clean-up | 373 → 40 |
-| Vessel density | 0.082 |
-| Thin/thick pixel ratio (thin < 4 px) | 0.37 |
-| Branch points / end points | 67 / 142 |
-| Total skeleton length | 3393 px (at the upsampled scale) |
+| Vessel Density | 0.082 (8.2%) |
+| Branch Points | 67 |
+| End Points | 142 |
+| Thin/Thick Vessel Pixel Ratio | 0.37 |
+| Total Skeleton Length | 3393 pixels |
+| DCT Compression | 10% coefficients retained |
+| DCT Reconstruction PSNR | 42.7 dB |
 
-**Caveats for the report:**
-* The source is a small JPEG, so the thinnest capillaries are lost before processing starts. The extracted tree is broken into segments: there are more end points than a real tree would have.
-* DCT/SVD PSNR values are measured on the upsampled image. Bicubic upsampling makes it smoother, which is why only 10% of coefficients already gives 42.7 dB.
-* For metrics (Se, Sp, Dice), use an image that comes with a manual vessel mask, e.g. a DRIVE image plus its `*_manual1.gif`.
+These measurements were obtained without an accompanying ground-truth mask. Therefore, segmentation accuracy, sensitivity, specificity, and Dice score were not calculated for this image.
 
-## 7. Toolbox functions and fallbacks
+Additional numerical results are saved in `metrics.csv`, `clinical_features.csv`, `summary.csv`, and `results.mat`.
 
-The pipeline was developed and run end to end in GNU Octave 8.4 with the image package. Real MATLAB was not available during development, so the first MATLAB run is the real test. For functions that only some versions have, the code checks availability and switches automatically:
+### References:
 
-| Function | If missing |
-|---|---|
-| `adapthisteq` | `utils/clahe_safe.m` (tile CLAHE with clipping and bilinear interpolation) |
-| `bwskel` | `bwmorph(...,'thin',Inf)` followed by `'spur'` pruning |
-| `dct2` / `idct2` | `utils/tf_dct2.m` (orthonormal DCT matrix) |
-| `exportgraphics` | `print -dpng -r150` |
-| `imgaussfilt` | not used; `utils/gauss_blur.m` (separable Gaussian) |
-| `writetable` / `table` | not used; `utils/write_csv.m`, `utils/print_table.m` |
-| `turbo` colormap | `jet` |
+1. **DRIVE: Digital Retinal Images for Vessel Extraction**
+   - [DRIVE Dataset](https://drive.grand-challenge.org/)
+
+2. **Digital Image Processing — Gonzalez and Woods**
+   - Reference for image enhancement, frequency-domain processing, morphological operations, and segmentation.
+
+3. **MATLAB Image Processing Toolbox**
+   - [MathWorks Documentation](https://www.mathworks.com/help/images/)
+
+### Limitations and Future Work:
+
+**Limitations**
+
+- Low-resolution fundus images may not contain sufficient detail to preserve the thinnest retinal capillaries.
+- Morphological extraction may produce discontinuities in the vascular network.
+- Fixed or percentile-based thresholding may incorrectly identify lesion boundaries or other dark structures as vessels.
+- Processing parameters may require adjustment for images with significantly different illumination or contrast.
+- Extracted vascular features are intended to support screening-related image analysis and do not independently establish a medical diagnosis.
+- Comprehensive quantitative validation requires ground-truth vessel segmentation masks.
+
+**Future Work**
+
+- Evaluate the pipeline on a larger collection of DRIVE retinal images.
+- Compare segmentation performance using Dice score, sensitivity, specificity, and accuracy.
+- Improve extraction of thin and low-contrast capillaries.
+- Investigate adaptive segmentation techniques for images with uneven illumination.
+- Improve vessel connectivity and reduce false-positive detections.
+- Extend the framework to support vessel tortuosity and other vascular morphology measurements.
+- Investigate machine learning-based segmentation as a future comparison with the classical DIP approach.
